@@ -13,20 +13,26 @@ class linkedwGragh : public Gragh<int>{
 
     void insertEdge(Edge edge);
 
-    void insertNode(Node node);
+    void insertNode(Node a, Node b, int value);
 
+    // 两个，一个dfs一个dfs，先留一个吧
     void dfs_find();
 
     void bfs_find();
 
+    // 求解度
     int degree();
 
+    // 求解出度
     int outdegree();
 
+    // 求解入度
     int indegree();
 
-    // 找到两个节点之间的最短距离
+    // 找到两个节点之间的最短距离 返回一个距离
     int find_min_function(Node a, Node b);
+    // 找到两个节点之间的最短距离 返回一个路径名的字符串
+    vector<string> find_min_path_function(Node a, Node b);
 };
 
 
