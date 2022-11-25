@@ -13,7 +13,7 @@ using namespace std;
 #define NODE
 
 class Node{
-    
+    string name;
 };
 
 typedef Node* nodePosision;
