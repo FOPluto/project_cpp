@@ -14,6 +14,8 @@ using namespace std;
 #define NODE
 
 class Node{
+
+    //表示地点名
     string name;
 };
 
