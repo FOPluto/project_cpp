@@ -49,11 +49,15 @@ class NodeList
 public:
 	static int cnt;
 
+    int idx;
+
 	int indegree;  //当前点入度
 
 	int outdegree;   //当前点出度
 
 	string info;        //当前点信息（城市名）
+
+    bool st;                //记录是否被遍历过了
 
 	NodeList(int the_indegree = 0, string the_info = "")
 	{

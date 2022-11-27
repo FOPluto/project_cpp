@@ -14,7 +14,6 @@
 template<class T>
 class Gragh{
     public:
-    virtual Graph(){}
     virtual int getNumberOfEdge() = 0;
     virtual int getNumberOfNode() = 0;
     virtual bool insertEdge(string start, string destination, T distance) = 0;

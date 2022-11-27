@@ -8,6 +8,10 @@
 #ifndef LINKEDDWGRAGH
 #define LINKEDDWGRAGH
 
+#define NOT_FOUND -1
+#define ERROR 0x3f3f3f3f
+#define FOUND 1
+
 #include "gragh.h"
 
 
@@ -32,7 +36,7 @@ class linkedwGragh : public Gragh<T>{
     vector<Edge<T>> edge_list;
 
     // 用到的索引
-    int idx = -1;
+    int idx = 0;
 
     // 构造函数
     linkedwGragh(int numberOfVertices){
@@ -55,7 +59,7 @@ class linkedwGragh : public Gragh<T>{
     private:
 
     // dfs函数内部递归实现
-    bool rdfs(Node<T> start, Node<T> destination);
+    bool rdfs(NodeList start, NodeList destination);
 
 
     // 求解度
@@ -82,7 +86,7 @@ class linkedwGragh : public Gragh<T>{
     // 下面需要实现的是一些图的算法，返回值和参数列表可以修改，必要的时候可以修改类其中的属性，但是必须提前告知
 
     // 两个，一个dfs一个bfs，都实现一下吧
-    bool dfs_find(string start, string destination);
+    int dfs_find(string start, string destination);
 
     void bfs_find(string start, string destination);
     
@@ -126,13 +130,14 @@ bool linkedwGragh<T>::insertEdge(string start, string destination, T distance){
     }
     if(!flag_a || !flag_b) return false;
 
+    a.outdegree ++;
+    b.indegree ++;
     // 存一下边
     Edge<T>* edge_temp = new Edge<T>(idx_a, idx_b, distance);
     this->edge_list.push_back(*edge_temp);
 
     // 存一下点到node_array中
     Node<T>* a_ = new Node<T>(distance, idx_b);
-
 
     this->node_array[idx_a].push_back(*a_);
     return true;
@@ -148,16 +153,57 @@ void linkedwGragh<T>::insertNode(string name){
 
     NodeList* temp_node_list = new NodeList(0, name);
 
+    temp_node_list->idx = this->idx ++;
+
     this->nodes_list.push_back(*temp_node_list);
-
 }
 
 template<class T>
-bool linkedwGragh<T>::dfs_find(string start, string destination){
+int linkedwGragh<T>::dfs_find(string start, string destination){
+    NodeList a, b;
+
+    int idx_a, idx_b;
+    bool flag_a = false, flag_b = false;
+    int flag = 0;
+    for(auto item = this->nodes_list.begin();item != this->nodes_list.end();item ++){
+        if(item->info == start) {
+            a = *item;
+            idx_a = flag;
+            flag_a = true;
+        }
+        if(item->info == destination) {
+            b = *item;
+            idx_b = flag;
+            flag_b = true;
+        }
+        flag ++;
+    }
+    if(!flag_a || !flag_b) return ERROR;
+
+    for(auto item : this->nodes_list){
+        item.st = false;  //全部初始化一下
+    }
+
+    bool res = this->rdfs(a, b);
+
+    if(!res) return NOT_FOUND;
+    else return FOUND;
 }
 
 template<class T>
-bool linkedwGragh<T>::rdfs(Node<T> start, Node<T> destination){
+bool linkedwGragh<T>::rdfs(NodeList start, NodeList destination){
+    if(start.info == destination.info){
+        return true;
+    }
+    for(auto item = this->node_array[start.idx].begin();item != this->node_array[start.idx].end();item ++){
+        int t = item->index;
+        if(!this->nodes_list[t].st){  // 假如没有遍历过这个点的话
+            this->nodes_list[t].st = true;
+            rdfs(this->nodes_list[t], destination);
+            this->nodes_list[t].st = false;
+        }
+    }
+    return false;
 }
 
 template<class T>
