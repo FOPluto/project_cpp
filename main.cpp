@@ -1,6 +1,8 @@
 #include "linkedwGragh.h"
 
 int main(){
-    linkedwGragh* myGragh = new linkedwGragh(10);
+    linkedwGragh<double>* myGragh = new linkedwGragh<double>(10);
+    Node<double>* node = new Node<double>(,)
+    myGragh->insertNode()
     return 0;
 }

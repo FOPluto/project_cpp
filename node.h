@@ -13,36 +13,70 @@
 
 using namespace std;
 
-
+template<class T>
 class Node{
     public:
-    //表示地点名
+
+    // 该点的编号
+    int index;
+
+    // 权重
+    T value;
+
+    // 名称
     string name;
 
-    //距离
-    int length;
+    // 是否被遍历过
+    bool st;
 
-    //下一个节点地址
-    Node* next_node;
+    Node(T value, int index){
+        this->value = value;
+        this->index = index;
+        this->st = false;
+    }
 
-
-    Node(string name = ""){
-        this->next_node = NULL;
+    Node(T value, string name){
         this->name = name;
+        this->value = value;
+        this->st = false;
     }
 
-    Node(Node currentNode, string name){
-        currentNode.next_node = new Node(name);
+    Node(){
+        this->st = false;
     }
-	//重载==，用于remove方法的判断
+
+	// 重载==，用于remove方法的判断
 	bool operator==(Node node)
 	{
-		if (node.name == this->name)return true;
+		if (node.index == this->index)return true;
 		else return false;
 	}
 };
 
-typedef Node* nodePosision;
+class NodeList
+{
+public:
+	static int cnt;
 
+	int indegree;  //当前点入度
+
+	int outdegree;   //当前点出度
+
+	string info;        //当前点信息（城市名）
+
+	NodeList(int the_indegree = 0, string the_info = "")
+	{
+		indegree = 0;
+		outdegree = 0;
+		indegree = the_indegree;
+		info = the_info;
+	}
+	//重载==，用于search方法
+	bool operator==(string to)
+	{
+		if (to == this->info)return true;
+		else return false;
+	}
+};
 
 #endif

@@ -17,8 +17,8 @@ class Gragh{
     virtual Graph(){}
     virtual int getNumberOfEdge() = 0;
     virtual int getNumberOfNode() = 0;
-    virtual void insertEdge(Edge edge) = 0;
-    virtual void insertNode(Node node) = 0;
+    virtual bool insertEdge(string start, string destination, T distance) = 0;
+    virtual void insertNode(Node<T> node) = 0;
     virtual int degree() const = 0;
     virtual int out_degree() const = 0;
     virtual int in_degree() const = 0;
