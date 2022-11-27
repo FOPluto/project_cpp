@@ -36,12 +36,6 @@ class Node{
         this->st = false;
     }
 
-	// 重载==，用于remove方法的判断
-	bool operator==(Node node)
-	{
-		if (node.index == this->index)return true;
-		else return false;
-	}
 };
 
 class NodeList
@@ -66,12 +60,7 @@ public:
 		indegree = the_indegree;
 		info = the_info;
 	}
-	//重载==，用于search方法
-	bool operator==(string to)
-	{
-		if (to == this->info)return true;
-		else return false;
-	}
+
 };
 
 #endif

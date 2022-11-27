@@ -88,7 +88,7 @@ class linkedwGragh : public Gragh<T>{
     // 两个，一个dfs一个bfs，都实现一下吧
     int dfs_find(string start, string destination);
 
-    void bfs_find(string start, string destination);
+    int bfs_find(string start, string destination, vector<string>& ans);
     
     // 拓扑序列
     void topo_find();
@@ -148,7 +148,6 @@ template<class T>
 void linkedwGragh<T>::insertNode(string name){
     this->numberOfNode ++;
     vector<Node<T>> temp_Node;
-    
     this->node_array.push_back(temp_Node);
 
     NodeList* temp_node_list = new NodeList(0, name);
@@ -207,7 +206,50 @@ bool linkedwGragh<T>::rdfs(NodeList start, NodeList destination){
 }
 
 template<class T>
-void linkedwGragh<T>::bfs_find(string start, string destination){
+int linkedwGragh<T>::bfs_find(string start, string destination, vector<string>& ans){
+    NodeList a, b;
+
+    int idx_a, idx_b;
+    bool flag_a = false, flag_b = false;
+    int flag = 0;
+    for(auto item = this->nodes_list.begin();item != this->nodes_list.end();item ++){
+        if(item->info == start) {
+            a = *item;
+            idx_a = flag;
+            flag_a = true;
+        }
+        if(item->info == destination) {
+            b = *item;
+            idx_b = flag;
+            flag_b = true;
+        }
+        flag ++;
+    }
+    if(!flag_a || !flag_b) return ERROR;
+    
+    for(auto item : this->nodes_list){
+        item.st = false;  //全部初始化一下
+    }
+
+    queue<NodeList> node_queue;
+    node_queue.push(a);
+
+    a.st = true;
+    int ans = 0;
+
+    while(!node_queue.empty()){
+        NodeList temp = node_queue.front();
+        node_queue.pop();
+
+        if(temp.info == b.info){
+            return ans;
+        }
+        for(auto item = this->node_array[temp.idx].begin();item != this->node_array[temp.idx].end();item++){
+            int t = this->nodes_list[t].idx;
+            node_queue.push(this->nodes_list[t]);
+        }
+        ans ++;
+    }
 
 }
 
