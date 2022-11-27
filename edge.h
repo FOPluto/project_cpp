@@ -5,6 +5,8 @@
 #ifndef EDGE_
 #define EDGE_
 
+
+// 李钜环nb
 #include "node.h"
 
 // 代表无穷远
