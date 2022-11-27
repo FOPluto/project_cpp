@@ -7,6 +7,8 @@ int main(){
     for(auto item : names){
         myGragh->insertNode(item);
     }
+
+    // 测试的数据
     bool temp = myGragh->insertEdge("长沙", "北京", 100.2);
     temp = myGragh->insertEdge("长沙", "秦皇岛", 314.514);
     temp = myGragh->insertEdge("长沙", "上海", 314.514);
