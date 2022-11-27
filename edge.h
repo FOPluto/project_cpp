@@ -18,13 +18,13 @@ class Edge{
     int v2;     // 点2的编号
     T w;           // 到达该点的权重
     
-    edge()
+    Edge()
     {
         v1 = -1;
         v2 = -1;
         w = 0;
     }
-    edge(int the_v1, int the_v2, T the_w)
+    Edge(int the_v1, int the_v2, T the_w)
     {
         v1 = the_v1;
         v2 = the_v2;

@@ -57,11 +57,6 @@ class linkedwGragh : public Gragh<T>{
     // dfs函数内部递归实现
     bool rdfs(Node<T> start, Node<T> destination);
 
-    // 插入边的函数
-    bool insertEdge(string start, string destination, T distance);
-
-    // 插入点的函数
-    void insertNode(Node<T> node);
 
     // 求解度
     int degree() const;
@@ -73,6 +68,12 @@ class linkedwGragh : public Gragh<T>{
     int in_degree() const;
 
     public:
+
+    // 插入边的函数
+    bool insertEdge(string start, string destination, T distance);
+
+    // 插入点的函数
+    void insertNode(string name);
 
     // 获取节点和边的数量
     int getNumberOfEdge(){return numberOfEdge;}
@@ -108,19 +109,22 @@ bool linkedwGragh<T>::insertEdge(string start, string destination, T distance){
     NodeList a, b;
 
     int idx_a, idx_b;
+    bool flag_a = false, flag_b = false;
     int flag = 0;
     for(auto item = this->nodes_list.begin();item != this->nodes_list.end();item ++){
         if(item->info == start) {
             a = *item;
             idx_a = flag;
+            flag_a = true;
         }
         if(item->info == destination) {
             b = *item;
             idx_b = flag;
+            flag_b = true;
         }
         flag ++;
     }
-    if(!a || !b) return false;
+    if(!flag_a || !flag_b) return false;
 
     // 存一下边
     Edge<T>* edge_temp = new Edge<T>(idx_a, idx_b, distance);
@@ -129,25 +133,23 @@ bool linkedwGragh<T>::insertEdge(string start, string destination, T distance){
     // 存一下点到node_array中
     Node<T>* a_ = new Node<T>(distance, idx_b);
 
-    
+
     this->node_array[idx_a].push_back(*a_);
     return true;
 }
 
 // 插入点的函数
 template<class T>
-void linkedwGragh<T>::insertNode(Node<T> node){
+void linkedwGragh<T>::insertNode(string name){
     this->numberOfNode ++;
     vector<Node<T>> temp_Node;
     
     this->node_array.push_back(temp_Node);
 
-    NodeList* temp_node_list = new NodeList(0, node.name);
+    NodeList* temp_node_list = new NodeList(0, name);
 
     this->nodes_list.push_back(*temp_node_list);
 
-    // 删除node的地址
-    delete &node;
 }
 
 template<class T>

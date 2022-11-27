@@ -23,21 +23,12 @@ class Node{
     // 权重
     T value;
 
-    // 名称
-    string name;
-
     // 是否被遍历过
     bool st;
 
     Node(T value, int index){
         this->value = value;
         this->index = index;
-        this->st = false;
-    }
-
-    Node(T value, string name){
-        this->name = name;
-        this->value = value;
         this->st = false;
     }
 
