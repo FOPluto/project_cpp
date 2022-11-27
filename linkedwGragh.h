@@ -235,20 +235,20 @@ int linkedwGragh<T>::bfs_find(string start, string destination, vector<string>& 
     node_queue.push(a);
 
     a.st = true;
-    int ans = 0;
+    int res = 0;
 
     while(!node_queue.empty()){
         NodeList temp = node_queue.front();
         node_queue.pop();
 
         if(temp.info == b.info){
-            return ans;
+            return res;
         }
         for(auto item = this->node_array[temp.idx].begin();item != this->node_array[temp.idx].end();item++){
             int t = this->nodes_list[t].idx;
             node_queue.push(this->nodes_list[t]);
         }
-        ans ++;
+        res ++;
     }
 
 }
